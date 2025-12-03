@@ -3,12 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Movies This Month</title>
+    <title>Free Movies This Month - Pirate's Treasure Chest</title>
     <link rel="stylesheet" th:href="@{/css/movies.css}">
 </head>
 <body>
     <div class="container">
-        <h1>Free Movies This Month</h1>
+        <h1>🏴‍☠️ Free Movies This Month - Pirate's Treasure Chest 🏴‍☠️</h1>
+        
+        <!-- Search Form -->
+        <div class="search-container">
+            <h2>⚓ Search the Seven Seas for Movies ⚓</h2>
+            <form method="GET" action="/movies" class="search-form">
+                <div class="search-row">
+                    <div class="search-field">
+                        <label for="name">🎬 Movie Name:</label>
+                        <input type="text" id="name" name="name" th:value="${searchName}" 
+                               placeholder="Enter movie name, matey...">
+                    </div>
+                    <div class="search-field">
+                        <label for="id">🆔 Movie ID:</label>
+                        <input type="number" id="id" name="id" th:value="${searchId}" 
+                               placeholder="Enter movie ID..." min="1">
+                    </div>
+                    <div class="search-field">
+                        <label for="genre">🎭 Genre:</label>
+                        <select id="genre" name="genre">
+                            <option value="">All Genres</option>
+                            <option th:each="genreOption : ${genres}" 
+                                    th:value="${genreOption}" 
+                                    th:text="${genreOption}"
+                                    th:selected="${genreOption == searchGenre}">Genre</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="search-buttons">
+                    <button type="submit" class="search-btn">🔍 Search for Treasure!</button>
+                    <a href="/movies" class="clear-btn">🧹 Clear Search</a>
+                </div>
+            </form>
+        </div>
+
+        <!-- Search Message -->
+        <div th:if="${searchMessage != null and !searchMessage.isEmpty()}" 
+             class="search-message" 
+             th:classappend="${#strings.contains(searchMessage, 'No treasure found') ? 'no-results' : 'has-results'}">
+            <p th:text="${searchMessage}">Search message</p>
+        </div>
+
+        <!-- Movies Grid -->
         <div class="movies-grid">
             <div class="movie-card" th:each="movie : ${movies}">
                 <div class="movie-icon" th:text="${movie.icon}">🎬</div>

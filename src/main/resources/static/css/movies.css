@@ -30,6 +30,111 @@ h1 {
     text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
+/* Search Container Styles */
+.search-container {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 40px;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.search-container h2 {
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    color: #17a2b8;
+}
+
+.search-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.search-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.search-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.search-field label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #ccc;
+}
+
+.search-field input,
+.search-field select {
+    padding: 12px 15px;
+    border: 2px solid rgba(255,255,255,0.2);
+    border-radius: 10px;
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    font-size: 1rem;
+}
+
+.search-field input:focus,
+.search-field select:focus {
+    outline: none;
+    border-color: #17a2b8;
+    background: rgba(255,255,255,0.15);
+}
+
+.search-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.search-btn {
+    background: linear-gradient(45deg, #17a2b8, #007bff);
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.clear-btn {
+    background: linear-gradient(45deg, #6c757d, #495057);
+    color: white;
+    padding: 15px 30px;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.search-message {
+    text-align: center;
+    padding: 20px;
+    margin-bottom: 30px;
+    border-radius: 15px;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.search-message.has-results {
+    background: rgba(40,167,69,0.2);
+    border: 2px solid rgba(40,167,69,0.4);
+    color: #28a745;
+}
+
+.search-message.no-results {
+    background: rgba(220,53,69,0.2);
+    border: 2px solid rgba(220,53,69,0.4);
+    color: #dc3545;
+}
+
 .movies-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
