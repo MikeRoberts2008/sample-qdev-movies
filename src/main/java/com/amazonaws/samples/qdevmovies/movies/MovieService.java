@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 @Service
 public class MovieService {
@@ -68,5 +69,71 @@ public class MovieService {
             return Optional.empty();
         }
         return Optional.ofNullable(movieMap.get(id));
+    }
+
+    /**
+     * Searches for movies based on provided criteria with pirate flair!
+     * Arrr! This method be searchin' through our treasure chest of movies, matey!
+     * 
+     * @param name Movie name to search for (partial match, case-insensitive)
+     * @param id Specific movie ID to find
+     * @param genre Genre to filter by (partial match, case-insensitive)
+     * @return List of movies matching the search criteria
+     */
+    public List<Movie> searchMovies(String name, Long id, String genre) {
+        logger.info("Ahoy! Searchin' for movies with name: '{}', id: '{}', genre: '{}'", name, id, genre);
+        
+        List<Movie> results = movies.stream()
+            .filter(movie -> matchesSearchCriteria(movie, name, id, genre))
+            .collect(Collectors.toList());
+            
+        logger.info("Arrr! Found {} movies in our treasure chest!", results.size());
+        return results;
+    }
+
+    /**
+     * Checks if a movie matches the search criteria
+     * 
+     * @param movie The movie to check
+     * @param name Name criteria (can be null)
+     * @param id ID criteria (can be null)
+     * @param genre Genre criteria (can be null)
+     * @return true if movie matches all provided criteria
+     */
+    private boolean matchesSearchCriteria(Movie movie, String name, Long id, String genre) {
+        // If ID is provided, it must match exactly
+        if (id != null && !movie.getId().equals(id)) {
+            return false;
+        }
+        
+        // If name is provided, it must contain the search term (case-insensitive)
+        if (name != null && !name.trim().isEmpty()) {
+            if (!movie.getMovieName().toLowerCase().contains(name.toLowerCase().trim())) {
+                return false;
+            }
+        }
+        
+        // If genre is provided, it must contain the search term (case-insensitive)
+        if (genre != null && !genre.trim().isEmpty()) {
+            if (!movie.getGenre().toLowerCase().contains(genre.toLowerCase().trim())) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+
+    /**
+     * Gets all unique genres from the movie collection
+     * Useful for populating genre dropdown in search form
+     * 
+     * @return List of unique genres
+     */
+    public List<String> getAllGenres() {
+        return movies.stream()
+            .map(Movie::getGenre)
+            .distinct()
+            .sorted()
+            .collect(Collectors.toList());
     }
 }
