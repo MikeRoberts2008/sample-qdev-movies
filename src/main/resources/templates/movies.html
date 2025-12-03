@@ -71,22 +71,6 @@
                 <a th:href="@{/movies/{id}/details(id=${movie.id})}" class="details-btn">View Details</a>
             </div>
         </div>
-
-        <!-- API Documentation -->
-        <div class="api-docs">
-            <h3>🗺️ REST API Treasure Map</h3>
-            <p>Ahoy developers! Use our REST API to search for movies programmatically:</p>
-            <div class="api-example">
-                <strong>Endpoint:</strong> <code>GET /movies/search</code><br>
-                <strong>Parameters:</strong>
-                <ul>
-                    <li><code>name</code> - Search by movie name (partial match)</li>
-                    <li><code>id</code> - Find specific movie by ID</li>
-                    <li><code>genre</code> - Filter by genre (partial match)</li>
-                </ul>
-                <strong>Example:</strong> <code>/movies/search?name=prison&genre=drama</code>
-            </div>
-        </div>
     </div>
 </body>
 </html>

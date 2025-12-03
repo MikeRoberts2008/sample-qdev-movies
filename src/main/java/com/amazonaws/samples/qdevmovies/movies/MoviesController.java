@@ -145,8 +145,14 @@ public class MoviesController {
             
             return ResponseEntity.ok(response);
             
-        } catch (Exception e) {
-            logger.error("Blimey! Error during movie search: {}", e.getMessage(), e);
+        } catch (IllegalArgumentException e) {
+            logger.error("Blimey! Invalid search parameters provided: {}", e.getMessage(), e);
+            response.put("success", false);
+            response.put("message", "Arrr! Invalid search parameters, ye scurvy dog! " + e.getMessage());
+            response.put("movies", List.of());
+            return ResponseEntity.badRequest().body(response);
+        } catch (RuntimeException e) {
+            logger.error("Shiver me timbers! Runtime error during movie search: {}", e.getMessage(), e);
             response.put("success", false);
             response.put("message", "Arrr! Something went wrong while searchin' for movies, matey! Try again later.");
             response.put("movies", List.of());
